@@ -1,0 +1,16 @@
+/AwsCredentials.properties
+/br
+/cache.ccf
+/ehcache.xml
+/email.properties
+/hibernate.cfg.xml
+/hibernate.hml.cfg.xml
+/hibernate.prd.cfg.xml
+/import.sql
+/log4j.hml.xml
+/log4j.prd.xml
+/log4j.xml
+/messages.properties
+/sessionFactory.xml
+/system.prd.properties
+/system.properties

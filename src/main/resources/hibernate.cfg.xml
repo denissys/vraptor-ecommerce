@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="hibernate.connection.charSet">utf8</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+	
+		<!-- Localhost -->	
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbkwikemart</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		
+		<property name="default_schema">dbkwikemart</property>
+
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.use_sql_comments">true</property>
+
+		<property name="hibernate.c3p0.minPoolSize">1</property>
+		<property name="hibernate.c3p0.maxPoolSize">3</property>
+<!-- 		<property name="hbm2ddl.auto" >create</property> -->
+
+		<mapping class="br.com.kwikemart.entity.User"/>
+		<mapping class="br.com.kwikemart.entity.Product"/>
+		
+	</session-factory>
+</hibernate-configuration>

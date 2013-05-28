@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /usuario/perfil
+
+Sitemap: http://www.kwik.com.br/sitemaps.txt

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="kwik-e-mart" default="build-war" basedir=".">
+
+	<property file="build.properties" />
+
+	<property name="war.name" value="${project.name}.war" />
+	<property name="src.dir" value="src" />
+	<property name="dist.dir" value="dist" />
+	<property name="web.dir" value="WebContent" />
+	<property name="jsp.dir" value="WebContent/WEB-INF/jsp" />
+	<property name="classes.dir" value="${web.dir}/WEB-INF/classes" />
+	<property name="web.xml.file" value="WebContent/WEB-INF/web.xml" />
+	<property name="lib.dir" value="WebContent/WEB-INF/lib/" />
+
+	<property name="instrumented.dir" value="${classes.dir}/instrumented-classes" />
+	<property name="coverage.dir" value="coverage" />
+	<property name="reports.dir" value="${coverage.dir}/reports" />
+	<property name="reports.xml.dir" value="${reports.dir}/junit-xml" />
+	<property name="reports.html.dir" value="${reports.dir}/junit-html" />
+	<property name="coverage.xml.dir" value="${reports.dir}/coverage-xml" />
+	<property name="coverage.summaryxml.dir" value="${reports.dir}/coverage-summary-xml" />
+	<property name="coverage.html.dir" value="${reports.dir}/coverage-html" />
+
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<path id="tomcat.classpath">
+		<fileset dir="${tomcat.home}/lib">
+			<include name="catalina-ant.jar" />
+			<include name="tomcat-coyote.jar" />
+		</fileset>
+		<fileset dir="${tomcat.home}/bin">
+			<include name="tomcat-juli.jar" />
+		</fileset>
+	</path>
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="project.classpath" />
+	<taskdef resource="tasks.properties" classpathref="project.classpath" />
+
+	<target name="main">
+		<antcall target="build-info" />
+		<antcall target="replace-tokens" />
+		<antcall target="build-war" />
+		<antcall target="stop-tomcat" />
+		<antcall target="copy-to-remote-host" />
+		<antcall target="undeploy" />
+		<antcall target="deploy" />
+		<antcall target="start-tomcat" />
+	</target>
+	
+	<target name="get-timestamp">
+		<tstamp>
+			<format property="now.property" pattern="dd-MM-yyyy hh:mm:ss" locale="pt,br" />
+		</tstamp>
+	</target>
+	
+	<target name="build-info" description="Get SVN Revision" depends="get-timestamp">
+		<echo message="Get SVN Revision" />
+		
+		<antcallback target="get-timestamp" return="now.property"></antcallback>
+	</target>
+	
+	<target name="replace-tokens">
+		<move file="${src.dir}/main/resources/log4j.xml" tofile="${src.dir}/main/resources/log4j.xml" />
+		<move file="${src.dir}/main/resources/system.prd.properties" tofile="${src.dir}/main/resources/system.properties" />
+		<move file="${src.dir}/main/resources/hibernate.cfg.xml" tofile="${src.dir}/main/resources/hibernate.cfg.xml" />
+	</target>
+
+	<target name="coverage" depends="clean-coverage,init-coverage,compile,instrument,test,coverage-report,summary-coverage-report,coverage-html-report" />
+
+	<target name="init-coverage">
+		<mkdir dir="${reports.xml.dir}" />
+		<mkdir dir="${reports.html.dir}" />
+		<mkdir dir="${coverage.xml.dir}" />
+		<mkdir dir="${coverage.summaryxml.dir}" />
+		<mkdir dir="${coverage.html.dir}" />
+	</target>
+
+	<target name="instrument" depends="compile">
+
+		<delete file="${coverage.dir}/kwik-e-mart.ser" />
+		<delete dir="${instrumented.dir}" />
+		<mkdir dir="${instrumented.dir}" />
+
+		<cobertura-instrument todir="${instrumented.dir}" datafile="${coverage.dir}/kwik-e-mart.ser">
+			<ignore regex="org.apache.log4j.*" />
+
+			<fileset dir="${classes.dir}">
+				<include name="**/*.class" />
+				<exclude name="**/*Test.class" />
+			</fileset>
+
+		</cobertura-instrument>
+	</target>
+
+	<target name="test" depends="compile">
+		<junit fork="yes" dir="${basedir}" failureProperty="test.failed">
+
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.dir}/kwik-e-mart.ser" />
+
+			<classpath location="${instrumented.dir}" />
+			<classpath location="${classes.dir}" />
+
+			<classpath refid="project.classpath" />
+			<formatter type="xml" />
+			<batchtest todir="${reports.xml.dir}">
+				<fileset dir="${src.dir}/test/java">
+					<include name="**/*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<junitreport todir="${reports.xml.dir}">
+			<fileset dir="${reports.xml.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.html.dir}" />
+		</junitreport>
+	</target>
+
+	<target name="coverage-report">
+		<cobertura-report format="xml" destdir="${coverage.xml.dir}" srcdir="${src.dir}/main/java" datafile="${coverage.dir}/kwik-e-mart.ser" />
+	</target>
+
+	<target name="summary-coverage-report">
+		<cobertura-report srcdir="${src.dir}/main/java" destdir="${coverage.summaryxml.dir}" format="summaryXml" datafile="${coverage.dir}/kwik-e-mart.ser" />
+	</target>
+
+	<target name="coverage-html-report">
+		<cobertura-report destdir="${coverage.html.dir}" datafile="${coverage.dir}/kwik-e-mart.ser">
+			<fileset dir="${src.dir}/main/java">
+				<include name="**/*.java" />
+			</fileset>
+		</cobertura-report>
+	</target>
+
+	<target name="clean">
+		<echo message="Cleaning dist directory" />
+		<delete dir="${classes.dir}" />
+		<delete dir="${dist.dir}" />
+		<echo message="Clean successfully done" />
+	</target>
+
+	<target name="clean-coverage">
+		<delete dir="${classes.dir}" />
+		<delete dir="${instrumented.dir}" />
+		<delete dir="${reports.dir}" />
+		<delete file="${coverage.dir}/kwik-e-mart.ser" />
+		<delete file="cobertura.log" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="project.classpath" includeantruntime="false" nowarn="yes" debug="on">
+		</javac>
+		<copy todir="${classes.dir}">
+			
+			<fileset dir="${src.dir}/main/resources/" includes="cache.ccf" />
+			<fileset dir="${src.dir}/main/resources/" includes="email.properties" />
+			<fileset dir="${src.dir}/main/resources/" includes="hibernate.cfg.xml" />
+			<fileset dir="${src.dir}/main/resources/" includes="log4j.xml" />
+			<fileset dir="${src.dir}/main/resources/" includes="messages.properties" />
+			<fileset dir="${src.dir}/main/resources/" includes="system.properties" />
+			<fileset dir="${src.dir}/main/resources/" includes="sessionFactory.xml" />
+			
+		</copy>
+		<copy todir="${classes.dir}/br/com/kwikemart/freemarker/i18n">
+			<fileset dir="${src.dir}/main/java/br/com/kwikemart/freemarker/i18n" includes="*.properties" />
+		</copy>
+		<copy todir="${classes.dir}/br/com/kwikemart/freemarker/templates">
+			<fileset dir="${src.dir}/main/java/br/com/kwikemart/freemarker/templates" includes="*.html" />
+		</copy>
+	</target>
+
+	<target name="execute-local-command">
+		<exec executable="sh" resultproperty="result.property" outputproperty="output.property">
+			<arg value="-c" />
+			<arg value="${command}" />
+		</exec>
+		<echo>Result of command '${command}': ${result.property}</echo>
+		<echo>Output of command '${command}': ${output.property}</echo>
+	</target>
+
+	<target name="build-war" depends="compile">
+		<mkdir dir="${dist.dir}" />
+		<war warfile="${dist.dir}/${war.name}" webxml="${web.xml.file}">
+			<fileset dir="${classes.dir}" excludes="*.xml,*.properties" />
+			<fileset dir="${web.dir}">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-On" value="${build-info.current-date}" />
+				<attribute name="Built-At" value="${build-info.current-time}" />
+			</manifest>
+		</war>
+		
+		<scp file="${dist.dir}/ROOT.war"
+			todir="ec2-user@ec2-107-20-242-228.compute-1.amazonaws.com:/home/ec2-user/apache-tomcat-7.0.40/webapps" 
+			keyfile="denissys.pem"
+		/>
+		
+	</target>
+
+</project>

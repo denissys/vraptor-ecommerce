@@ -1,0 +1,25 @@
+# DEFAULT CACHE REGION
+jcs.default										=
+jcs.default.cacheattributes						= org.apache.jcs.engine.CompositeCacheAttributes
+jcs.default.cacheattributes.MaxObjects			= 500
+jcs.default.cacheattributes.MemoryCacheName		= org.apache.jcs.engine.memory.lru.LRUMemoryCache
+jcs.default.cacheattributes.UseMemoryShrinker	= false
+jcs.default.elementattributes					= org.apache.jcs.engine.ElementAttributes
+jcs.default.elementattributes.MaxLifeSeconds	= 500
+jcs.default.elementattributes.IsEternal			= false
+jcs.default.elementattributes.IsSpool			= false
+jcs.default.elementattributes.IsRemote			= false
+jcs.default.elementattributes.IsLateral			= false
+
+## COUNTERS HOME ##
+#jcs.region.StoreCounterController										=
+#jcs.region.StoreCounterController.cacheattributes						= org.apache.jcs.engine.CompositeCacheAttributes
+#jcs.region.StoreCounterController.cacheattributes.MaxObjects			= 100
+#jcs.region.StoreCounterController.cacheattributes.MemoryCacheName		= org.apache.jcs.engine.memory.lru.LRUMemoryCache
+#jcs.region.StoreCounterController.cacheattributes.UseMemoryShrinker		= false
+#jcs.region.StoreCounterController.elementattributes.MaxLifeSeconds		= 5184000
+#jcs.region.StoreCounterController.elementattributes						= org.apache.jcs.engine.ElementAttributes
+#jcs.region.StoreCounterController.elementattributes.IsEternal			= false
+#jcs.region.StoreCounterController.elementattributes.IsSpool				= false
+#jcs.region.StoreCounterController.elementattributes.IsRemote			= false
+#jcs.region.StoreCounterController.elementattributes.IsLateral			= false
