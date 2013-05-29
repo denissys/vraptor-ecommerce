@@ -6,7 +6,8 @@ $(document).ready(function() {
 			
 			var registerData = {
 					"user.email"     : $('#email').val(),
-					"user.password"  : $('#password').val()
+					"user.password"  : $('#password').val(),
+					"decisionRoute"  : $('#decisionRoute').val()
 				};
 			
 			$.ajax({

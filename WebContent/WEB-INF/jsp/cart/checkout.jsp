@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="br.com.kwikemart.enums.DecisionRoute"%>
 
 <!DOCTYPE HTML>
 <html lang="pt-BR">
@@ -14,8 +15,18 @@
 			<h4 class="title">
                	<span class="pull-left"><span class="text"><span class="line">Pagamento da sua <strong>compra</strong></span></span></span>
             </h4>
+
+			<jsp:include page="checkoutAuth.jsp" ></jsp:include>
+			
+			
             
 			<jsp:include page="../footer.jsp" ></jsp:include>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery-ui.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.validate.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.maskedinput.min.js"></script>
+			<script type='text/javascript' src="/assets/js/app/app.register.js"></script>
+			<script type="text/javascript" src="/assets/js/app/app.login.js"></script>
 		</div>		
     </body>
 </html>

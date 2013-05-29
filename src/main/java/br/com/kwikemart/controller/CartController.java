@@ -17,6 +17,7 @@ import br.com.kwikemart.session.Cart;
 @Resource
 public class CartController {
 
+	public static final String CHECKOUT_PATH = "/meu-carrinho/comprar";
 	private Result result;
 	private Cart cart;
 	private ProductDAO productDAO;
@@ -63,8 +64,11 @@ public class CartController {
 		result.use(json()).from(true).serialize();
 	}
 
+	/**
+	 * Last event of purchase, here the user terminates the buy.
+	 */
 	@Get
-	@Path("/meu-carrinho/comprar")
+	@Path(CHECKOUT_PATH)
 	public void checkout() {
 		result.include("items", cart.getList());
 	}

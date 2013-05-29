@@ -10,9 +10,10 @@ $(document).ready(function() {
 					"user.firstName" : $('#firstName').val(),
 					"user.lastName"  : $('#lastName').val(),
 					"user.document"  : $('#cpf').val(),
-					"user.email"     : $('#email').val(),
-					"user.password"  : $('#password').val(),
-					"receiveEmail"   : $('#recebaEmail').val()
+					"user.email"     : $('#newEmail').val(),
+					"user.password"  : $('#newPassword').val(),
+					"receiveEmail"   : $('#recebaEmail').val(),
+					"decisionRoute"  : $('#decisionRoute').val(),
 				};
 			
 			$.ajax({
@@ -52,7 +53,7 @@ $(document).ready(function() {
 				verificaCPF: true
 			},
 			
-			email: {
+			newEmail: {
 				required: true,
 				email: true,
 				maxlength: 300,
@@ -60,10 +61,10 @@ $(document).ready(function() {
 			},
 			emailConfirm: {
                 required: true, 
-                equalTo: "#email" 
+                equalTo: "#newEmail" 
               
          	 }, 
-          password: {
+         	 newPassword: {
 				required: true,
 				maxlength: 200,
 				minlength: 5
@@ -71,7 +72,7 @@ $(document).ready(function() {
 			},
 			passwordConfirm: {
                 required: true, 
-                equalTo: "#password", 
+                equalTo: "#newPassword", 
                 minlength: 5
          	 }, 
          	 

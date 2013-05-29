@@ -1,7 +1,6 @@
 package br.com.kwikemart.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
-import static br.com.kwikemart.controller.UserController.MY_ACCOUNT_PATH;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -10,6 +9,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.kwikemart.bo.JsonViewResponse;
 import br.com.kwikemart.dao.UserDAO;
 import br.com.kwikemart.entity.User;
+import br.com.kwikemart.enums.DecisionRoute;
 import br.com.kwikemart.session.LoggedUser;
 
 /**
@@ -45,14 +45,14 @@ public class LoginController {
 	 */
 	@Post
 	@Path("/auth")
-	public void auth(User user) {
+	public void auth(User user, DecisionRoute decisionRoute) {
 		
 		JsonViewResponse response = new JsonViewResponse(true, "Logado com sucesso");
 		
 		user = userDAO.findByEmailAndPassword(user.getEmail(), user.getPassword());
 		if (user.isPersisted()) {
 			loggedUser.doLogin(user);
-			response = new JsonViewResponse(true, MY_ACCOUNT_PATH, true);
+			response = new JsonViewResponse(true, decisionRoute.getPath(), true);
 
 		} else {
 			response = new JsonViewResponse(false,

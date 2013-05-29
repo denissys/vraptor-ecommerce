@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.kwikemart.bo.JsonViewResponse;
 import br.com.kwikemart.dao.UserDAO;
 import br.com.kwikemart.entity.User;
+import br.com.kwikemart.enums.DecisionRoute;
 import br.com.kwikemart.session.LoggedUser;
 import br.com.kwikemart.utils.SendMail;
 
@@ -49,7 +50,7 @@ public class UserController {
 	 */
 	@Post
 	@Path("/cadastro/salvar")
-	public void register(User user) {
+	public void register(User user, DecisionRoute decisionRoute) {
 		JsonViewResponse response = new JsonViewResponse(false, "Falha ao cadastrar, tente mais tarde.");
 
 		boolean newRegister = userDAO.getByEmailOrCpf(user.getEmail(), user.getDocument()) == null;
@@ -62,7 +63,7 @@ public class UserController {
 			if (userId != null) {
 				user.setId(userId);
 				loggedUser.doLogin(user);
-				response = new JsonViewResponse(true, MY_ACCOUNT_PATH, true);
+				response = new JsonViewResponse(true, decisionRoute.getPath(), true);
 			}
 		} else {
 			response = new JsonViewResponse(false,
