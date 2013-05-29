@@ -32,12 +32,11 @@
 								<h4><strong>Preço: R$ ${product.price}</strong></h4>
 							</div>
 							<div class="span6">
-								<form id="form-purchase" class="form-inline">
-									<label>Quantidade:</label>
-									<input type="text" class="span1" placeholder="1">
-									<button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
-									<a href="/comprar" class="btn btn-danger" >Comprar</a>
-								</form>
+								<input type="hidden" id="productId" value="${product.id}" />
+								<label>Quantidade:</label>
+								<input type="text" id="quantity" class="span1" placeholder="" />
+								<button id="add-cart" class="btn btn-success" type="submit">Adicionar ao carrinho</button>
+								<a href="/meu-carrinho" class="btn btn-danger" >Ir para o seu carrinho</a>
 							</div>							
 						</div>
 					</div>
@@ -50,6 +49,7 @@
 			</c:choose>
 
 			<jsp:include page="../footer.jsp" ></jsp:include>
+			<script type="text/javascript" src="/assets/js/app/app.cart.js"></script>
 		</div>		
     </body>
 </html>

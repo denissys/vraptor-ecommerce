@@ -24,7 +24,9 @@ public class ProductDAO {
     }
 
 	public Product getById(final Long id) {
-		return (Product) session.load(Product.class, id);
+		Criteria criteria = session.createCriteria(Product.class, "product");
+		criteria.add(eq("product.id", id));
+		return (Product) criteria.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")

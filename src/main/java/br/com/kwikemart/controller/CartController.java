@@ -1,9 +1,6 @@
 package br.com.kwikemart.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.caelum.vraptor.Delete;
+import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -11,6 +8,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.kwikemart.bo.CartItem;
 import br.com.kwikemart.dao.ProductDAO;
+import br.com.kwikemart.entity.Product;
 import br.com.kwikemart.session.Cart;
 
 /**
@@ -35,21 +33,7 @@ public class CartController {
 	@Get
 	@Path("/meu-carrinho")
 	public void myCart() {
-
-		CartItem item1 = new CartItem();
-		item1.setProduct(productDAO.getById(27L));
-		item1.setQuantity(2);
-
-		CartItem item2 = new CartItem();
-		item2.setProduct(productDAO.getById(30L));
-		item2.setQuantity(3);
-
-		cart.addNewItem(item1);
-		cart.addNewItem(item2);
-
-		List<CartItem> items = new ArrayList<CartItem>(cart.getItems().values());
-
-		result.include("items", items);
+		result.include("items", cart.getList());
 	}
 
 	/**
@@ -60,8 +44,11 @@ public class CartController {
 	@Post
 	@Path("/meu-carrinho/adicionar")
 	public void add(CartItem item) {
-		item.setProduct(productDAO.getById(item.getProduct().getId()));
+
+		Product product = productDAO.getById(item.getProduct().getId());
+		item.setProduct(product);
 		cart.addNewItem(item);
+		result.use(json()).from(true).serialize();
 	}
 
 	/**
@@ -69,9 +56,17 @@ public class CartController {
 	 * 
 	 * @param item
 	 */
-	@Delete
+	@Post
 	@Path("/meu-carrinho/remover")
 	public void remove(Long productId) {
 		cart.removeItem(productId);
+		result.use(json()).from(true).serialize();
 	}
+
+	@Get
+	@Path("/meu-carrinho/comprar")
+	public void checkout() {
+		result.include("items", cart.getList());
+	}
+
 }

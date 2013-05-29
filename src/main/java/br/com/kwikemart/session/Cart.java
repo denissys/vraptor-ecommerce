@@ -1,17 +1,17 @@
 package br.com.kwikemart.session;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import lombok.Getter;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.com.kwikemart.bo.CartItem;
 
 @Component
 @SessionScoped
-@RequestScoped
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +35,10 @@ public class Cart implements Serializable {
 
 	public CartItem getItem(Long id) {
 		return items.get(id);
+	}
+
+	public List<CartItem> getList() {
+		return new ArrayList<CartItem>(this.getItems().values());
 	}
 
 }

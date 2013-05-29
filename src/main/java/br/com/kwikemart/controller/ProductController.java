@@ -45,7 +45,7 @@ public class ProductController {
 
 	@Get
 	@Path("/produtos/{id}")
-	public void product(long id) {
+	public void detail(long id) {
 		result.include("product", productDAO.getById(id));
 	}
 
