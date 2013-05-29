@@ -84,7 +84,6 @@ section#copyright{
 	margin-right: -10px;	
 }
 section.header_text{
-	background:url(../img/bg_h.png) no-repeat bottom;
 	text-align:center;
 	padding:15px 0 20px 0;
 	font-size:16px;
@@ -209,7 +208,7 @@ section#footer-bar  a:hover{
 	text-decoration:underline;	
 }
 section#footer-bar  .nav a{
-	background: url(../img/trigger_right.png) no-repeat 5px 7px;
+/* 	background: url(../img/trigger_right.png) no-repeat 5px 7px; */
 }
 section#footer-bar h4 {
 	padding: 0;
@@ -421,7 +420,6 @@ section.navbar{
 	border-bottom:1px solid #eee;
 }
 .product-box span.sale_tag {
-	background: url(../img/sprites.png) no-repeat scroll 0 0 transparent;
 	height: 54px;
 	position: absolute;
 	width: 55px;
@@ -465,7 +463,6 @@ section.navbar{
 /* title style for h4 tag
 ----------------------------------------------------------------------------- */
 h4.title{
-	background: url(../img/line_bar.png) 0 8px repeat-x;
 	padding-bottom:5px;
 	margin-bottom:15px;
 	overflow:hidden;
@@ -525,6 +522,7 @@ section.our_client .row{
 }
 .search_form input{
 	background: url(../img/search.png) #fff no-repeat 97% 6px;
+	background-size:16px 16px;
 	color:#000;
 	text-shadow:none;
 	padding-right:25px;	
@@ -652,7 +650,6 @@ section.our_client .row{
 	margin-bottom:-30px;
 }
 .block h4{
-	background: url(../img/bg_h.png) no-repeat bottom left;
 	margin: 0 0 20px 0;
 	border-bottom:1px solid #eee;	
 }
@@ -661,14 +658,13 @@ section.our_client .row{
 /* Navigation list */
 .nav-header{
 	color:#333;
-	background: url(../img/bg_h.png) no-repeat bottom left;
 	margin-bottom:10px;
 }
 .nav-list li{
 	text-align:left;
 }
 .nav-list li a{
-	background: url(../img/trigger_right.png) transparent no-repeat 5px 8px;
+/* 	background: url(../img/trigger_right.png) transparent no-repeat 5px 8px; */
 }
 .nav-list > .active > a, .nav-list > .active > a:hover{
 	background-color: transparent;
