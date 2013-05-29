@@ -66,14 +66,14 @@ $(document).ready(function() {
          	 }, 
          	 newPassword: {
 				required: true,
-				maxlength: 200,
-				minlength: 5
-				//notPartOf: $('#name')
+				minlength: 5,
+				maxlength: 20
 			},
 			passwordConfirm: {
                 required: true, 
                 equalTo: "#newPassword", 
-                minlength: 5
+                minlength: 5,
+				maxlength: 20
          	 } 
 		},
 		messages: {

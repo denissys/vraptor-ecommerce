@@ -46,11 +46,75 @@ $(document).ready(function() {
 		}
 		
 	});
-});
+	
+	$("#form-change-password").validate({
+		
+		submitHandler:function(form) {
+			
+			var registerData = {
+					"password"  : $('#password').val(),
+					"newPassword"  : $('#newPassword').val()
+				};
+			
+			$.ajax({
+				  type: "POST",
+				  url: "/perfil/alterar-senha",
+				  data: registerData,
+				  dataType: "json",
+				  success: function(data) {
+					  var response = data.jsonViewResponse; 
+					  alert(response.message);
+					  if(response.success) {
+						  $("#password").val("");
+						  $("#newPassword").val("");
+						  $("#newPasswordConfirm").val("");
+						  $(".change-password").hide();
+					  } else {
+						  $("#password").val("");
+					  }
+				  }
+				});
+		},
+			
+		rules: {
+			password: {
+	 				required: true,
+	 				minlength: 5,
+	 				maxlength: 20
+			},
+			
+        	newPassword: {
+ 				required: true,
+ 				minlength: 5,
+ 				maxlength: 20
+ 			},
+ 			
+ 			newPasswordConfirm: {
+                 required: true, 
+                 equalTo: "#newPassword", 
+                 minlength: 5
+          	}
+		},
+		
+		messages: {
+			password: {
+				minlength: "Sua senha deve conter pelo menos {0} caracteres.",
+	    	},
+	    	newPassword: {
+				minlength: "Sua senha deve conter pelo menos {0} caracteres.",
+	    	},
+	    	newPasswordConfirm: "As senhas novas não coincidem."
+		}
+		
+	});
+	
+	$(".btn-update").click(function() {
+		$(".edit").show();
+	});
 
-$(".btn-update").click(function() {
-
-	$(".edit").show();
+	$(".btn-change-passowrd").click(function() {
+		$(".change-password").show();
+	});
 });
 
 jQuery.validator.addMethod("verificaCPF", function(value, element) {

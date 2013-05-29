@@ -49,14 +49,13 @@ public class LoginController {
 		
 		JsonViewResponse response = new JsonViewResponse(true, "Logado com sucesso");
 		
-		user = userDAO.getByEmailOrCpf(user.getEmail(), user.getPassword());
+		user = userDAO.getByEmailAndPassword(user.getEmail(), user.getPassword());
 		if (user.isPersisted()) {
 			loggedUser.doLogin(user);
 			response = new JsonViewResponse(true, decisionRoute.getPath(), true);
 
 		} else {
-			response = new JsonViewResponse(false,
-					"Email e/ou senha inválidos.");
+			response = new JsonViewResponse(false, "Email e/ou senha inválidos.");
 		}
 
 		result.use(json()).from(response).serialize();

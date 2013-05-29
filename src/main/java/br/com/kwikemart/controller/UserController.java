@@ -110,4 +110,21 @@ public class UserController {
 		result.use(json()).from(response).serialize();
 	}
 
+	@Post
+	@LoggedIn
+	@Path("/perfil/alterar-senha")
+	public void changePassword(final String password, final String newPassword) {
+
+		JsonViewResponse response = new JsonViewResponse(false,
+				"A senha atual não confere com a senha cadastrada.");
+		
+		User storedUser = userDAO.getByEmailAndPassword(loggedUser.getUser().getEmail(), password);
+		
+		if (storedUser.isPersisted()) {
+			storedUser.setPassword(newPassword);
+			response = new JsonViewResponse(true, "Senha atualizada com sucesso");
+		}
+		
+		result.use(json()).from(response).serialize();
+	}
 }

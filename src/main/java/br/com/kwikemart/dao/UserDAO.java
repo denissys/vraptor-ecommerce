@@ -42,4 +42,14 @@ public class UserDAO {
 		return user;
 	}
 
+	public User getByEmailAndPassword(final String email, final String password) {
+		Criteria criteria = session.createCriteria(User.class, "user");
+		criteria.add(eq("user.email", email));
+		criteria.add(eq("user.password", password));
+		criteria.setMaxResults(1);
+		User user = (User) criteria.uniqueResult();
+
+		return user != null ? user : new User();
+	}
+
 }

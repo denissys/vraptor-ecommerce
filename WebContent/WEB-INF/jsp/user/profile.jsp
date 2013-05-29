@@ -25,12 +25,19 @@
 					<button type="submit" class="btn btn-inverse btn-update" name="atualizar-perfil" title="Clique aqui para editar o seu perfil." id="atualiz-perfil">Editar meu Perfil</button><br /><br />
 				</div>
 				<div class="span3">	
+					<button type="submit" class="btn btn-inverse btn-change-passowrd" name="alterar-senha" title="Clique aqui para alterar a sua senha." id="alterar-senha">Alteração de Senha</button><br /><br />
+				</div>
+				<div class="span3">	
 					<a href="/logoff" class="btn btn-warning btn-update" title="Clique aqui navegar deslogado." id="enviar">Sair (Finalizar sessão)</a><br /><br />
 				</div>
 			</div>
 			<div class="edit hide">		
 				<jsp:include page="profileEdit.jsp" />
-			</div>	
+			</div>
+			
+			<div class="change-password hide">		
+				<jsp:include page="profileChangePassword.jsp" />
+			</div>
 
 			<jsp:include page="../footer.jsp" />
 			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>

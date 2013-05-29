@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="br.com.kwikemart.enums.DecisionRoute"%>
 
-<form id="form-update" name="form-register" method="post" autocomplete="off" >
+<form id="form-update" name="form-update" method="post" autocomplete="off" >
 	E-mail: ${user.email} <br />
     <input type="text" class="input-big" id="firstName" name="firstName" maxlength="40" value="${user.firstName}" placeholder="Primeiro Nome" /> <br />
     <input type="text" class="input-big" id="lastName" name="lastName" maxlength="40" value="${user.lastName}" placeholder="Sobrenome" /> <br />
