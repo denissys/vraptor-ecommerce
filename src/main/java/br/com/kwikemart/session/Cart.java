@@ -41,4 +41,8 @@ public class Cart implements Serializable {
 		return new ArrayList<CartItem>(this.getItems().values());
 	}
 
+	public void finish() {
+		items = new HashMap<Long, CartItem>();
+	}
+
 }

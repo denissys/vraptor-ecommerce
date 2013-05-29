@@ -4,6 +4,9 @@ import static br.com.kwikemart.controller.CartController.CHECKOUT_PATH;
 import static br.com.kwikemart.controller.UserController.MY_ACCOUNT_PATH;
 import lombok.Getter;
 
+/**
+ * @author Denis Santos
+ */
 public enum DecisionRoute {
 
 	DEFAULT(MY_ACCOUNT_PATH), CHECKOUT(CHECKOUT_PATH);

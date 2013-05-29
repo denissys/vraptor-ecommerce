@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.kwikemart.bo.CartItem;
+import br.com.kwikemart.bo.JsonViewResponse;
 import br.com.kwikemart.dao.ProductDAO;
 import br.com.kwikemart.entity.Product;
 import br.com.kwikemart.session.Cart;
@@ -71,6 +72,16 @@ public class CartController {
 	@Path(CHECKOUT_PATH)
 	public void checkout() {
 		result.include("items", cart.getList());
+	}
+
+	@Post
+	@Path("/meu-carrinho/pedido")
+	public void ordered() {
+
+		cart.finish();
+		
+		result.use(json()).from(new JsonViewResponse(true, "123456"))
+				.serialize();
 	}
 
 }

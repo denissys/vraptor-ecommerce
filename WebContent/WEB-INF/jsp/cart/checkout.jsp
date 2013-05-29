@@ -13,12 +13,12 @@
 			<jsp:include page="../menu.jsp" ></jsp:include>
 
 			<h4 class="title">
-               	<span class="pull-left"><span class="text"><span class="line">Pagamento da sua <strong>compra</strong></span></span></span>
+               	<span class="pull-left"><span class="text"><span class="line">Finalizar <strong>Pedido</strong></span></span></span>
             </h4>
 
-			<jsp:include page="checkoutAuth.jsp" ></jsp:include>
+			<jsp:include page="checkoutAuth.jsp" />
 			
-			
+			<jsp:include page="checkoutOrdered.jsp" />
             
 			<jsp:include page="../footer.jsp" ></jsp:include>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
@@ -27,6 +27,7 @@
 			<script type="text/javascript" src="/assets/js/jquery/jquery.maskedinput.min.js"></script>
 			<script type='text/javascript' src="/assets/js/app/app.register.js"></script>
 			<script type="text/javascript" src="/assets/js/app/app.login.js"></script>
+			<script type="text/javascript" src="/assets/js/app/app.checkout.js"></script>
 		</div>		
     </body>
 </html>
