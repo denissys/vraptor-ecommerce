@@ -32,8 +32,8 @@ $(document).ready(function() {
 		rules: {
 			street: {
 				required: true,
-				minlength: 2,
-				maxlength: 150
+				minlength: 4,
+				maxlength: 100
 			},
 			
 			streetNumber: {
@@ -43,9 +43,9 @@ $(document).ready(function() {
 			},
 			
 			complement: {
-				required: true,
-				minlength: 2,
-				maxlength: 50
+				required: false,
+				minlength: 1,
+				maxlength: 10
 			}
 		}
 		

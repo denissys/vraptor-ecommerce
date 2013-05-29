@@ -24,10 +24,13 @@
 
 		<property name="hibernate.c3p0.minPoolSize">1</property>
 		<property name="hibernate.c3p0.maxPoolSize">3</property>
-<!-- 		<property name="hbm2ddl.auto" >create</property> -->
+		<property name="hbm2ddl.auto" >create-drop</property>
 
 		<mapping class="br.com.kwikemart.entity.User"/>
+		<mapping class="br.com.kwikemart.entity.UserAddress"/>
 		<mapping class="br.com.kwikemart.entity.Product"/>
+		<mapping class="br.com.kwikemart.entity.CartItem"/>
+		<mapping class="br.com.kwikemart.entity.Ordered"/>
 		
 	</session-factory>
 </hibernate-configuration>

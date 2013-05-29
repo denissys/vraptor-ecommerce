@@ -6,11 +6,16 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.kwikemart.bo.CartItem;
 import br.com.kwikemart.bo.JsonViewResponse;
+import br.com.kwikemart.dao.OrderedDAO;
 import br.com.kwikemart.dao.ProductDAO;
+import br.com.kwikemart.dao.UserAddressDAO;
+import br.com.kwikemart.entity.CartItem;
+import br.com.kwikemart.entity.Ordered;
 import br.com.kwikemart.entity.Product;
+import br.com.kwikemart.entity.UserAddress;
 import br.com.kwikemart.session.Cart;
+import br.com.kwikemart.session.LoggedUser;
 
 /**
  * @author Denis Santos
@@ -20,13 +25,21 @@ public class CartController {
 
 	public static final String CHECKOUT_PATH = "/meu-carrinho/comprar";
 	private Result result;
+	private LoggedUser loggedUser;
 	private Cart cart;
 	private ProductDAO productDAO;
+	private UserAddressDAO userAddressDAO;
+	private OrderedDAO orderedDAO;
 
-	public CartController(Result result, Cart cart, ProductDAO productDAO) {
+	public CartController(Result result, LoggedUser loggedUser, Cart cart,
+			ProductDAO productDAO,
+			UserAddressDAO userAddressDAO, OrderedDAO orderedDAO) {
 		this.result = result;
+		this.loggedUser = loggedUser;
 		this.cart = cart;
 		this.productDAO = productDAO;
+		this.userAddressDAO = userAddressDAO;
+		this.orderedDAO = orderedDAO;
 	}
 
 	/**
@@ -49,6 +62,7 @@ public class CartController {
 
 		Product product = productDAO.getById(item.getProduct().getId());
 		item.setProduct(product);
+		item.setPrice(product.getPrice());
 		cart.addNewItem(item);
 		result.use(json()).from(true).serialize();
 	}
@@ -76,11 +90,16 @@ public class CartController {
 
 	@Post
 	@Path("/meu-carrinho/pedido")
-	public void ordered() {
+	public void ordered(UserAddress address) {
+
+		address.setUser(loggedUser.getUser());
+
+		Ordered ordered = new Ordered(loggedUser.getUser(), address, cart.getList());
+		final Long orderedNumber = orderedDAO.save(ordered);
 
 		cart.finish();
 		
-		result.use(json()).from(new JsonViewResponse(true, "123456"))
+		result.use(json()).from(new JsonViewResponse(true, orderedNumber.toString()))
 				.serialize();
 	}
 

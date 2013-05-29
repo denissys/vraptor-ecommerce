@@ -51,6 +51,9 @@ public class UserController {
 	@Post
 	@Path("/cadastro/salvar")
 	public void register(User user, DecisionRoute decisionRoute) {
+
+		// TODO: Implementar criptografia de senha
+
 		JsonViewResponse response = new JsonViewResponse(false, "Falha ao cadastrar, tente mais tarde.");
 
 		boolean newRegister = userDAO.getByEmailOrCpf(user.getEmail(), user.getDocument()) == null;

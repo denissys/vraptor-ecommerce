@@ -36,9 +36,6 @@ public class User extends AbstractEntity implements Serializable {
 	private String document;
 
 	@Getter @Setter
-	private String birthday;
-
-	@Getter @Setter
 	@Column(length = 32, nullable = false)
 	private String password;
 

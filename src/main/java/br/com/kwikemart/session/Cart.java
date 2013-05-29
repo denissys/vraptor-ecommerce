@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.Getter;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
-import br.com.kwikemart.bo.CartItem;
+import br.com.kwikemart.entity.CartItem;
 
 @Component
 @SessionScoped
