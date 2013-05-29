@@ -9,7 +9,6 @@ import br.com.caelum.vraptor.Result;
 import br.com.kwikemart.bo.JsonViewResponse;
 import br.com.kwikemart.dao.OrderedDAO;
 import br.com.kwikemart.dao.ProductDAO;
-import br.com.kwikemart.dao.UserAddressDAO;
 import br.com.kwikemart.entity.CartItem;
 import br.com.kwikemart.entity.Ordered;
 import br.com.kwikemart.entity.Product;
@@ -28,17 +27,14 @@ public class CartController {
 	private LoggedUser loggedUser;
 	private Cart cart;
 	private ProductDAO productDAO;
-	private UserAddressDAO userAddressDAO;
 	private OrderedDAO orderedDAO;
 
 	public CartController(Result result, LoggedUser loggedUser, Cart cart,
-			ProductDAO productDAO,
-			UserAddressDAO userAddressDAO, OrderedDAO orderedDAO) {
+			ProductDAO productDAO, OrderedDAO orderedDAO) {
 		this.result = result;
 		this.loggedUser = loggedUser;
 		this.cart = cart;
 		this.productDAO = productDAO;
-		this.userAddressDAO = userAddressDAO;
 		this.orderedDAO = orderedDAO;
 	}
 
@@ -99,8 +95,7 @@ public class CartController {
 
 		cart.finish();
 		
-		result.use(json()).from(new JsonViewResponse(true, orderedNumber.toString()))
-				.serialize();
+		result.use(json()).from(new JsonViewResponse(true, orderedNumber.toString())).serialize();
 	}
 
 }

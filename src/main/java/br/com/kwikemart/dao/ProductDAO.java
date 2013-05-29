@@ -41,7 +41,7 @@ public class ProductDAO {
 	}
 
 	public void update(Product product) {
-		session.update(product);
+		session.merge(product);
 	}
 
 	/**
@@ -54,6 +54,17 @@ public class ProductDAO {
 		Criteria criteria = session.createCriteria(Product.class, "product")
 				.addOrder(Order.desc("product.insertDate"));
 		criteria.setMaxResults(8);
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product> paginatedList(int page, int quantityPerPage) {
+		Criteria criteria = session.createCriteria(Product.class, "product")
+				.addOrder(Order.asc("product.name"));
+
+		criteria.setFirstResult(page);
+		criteria.setMaxResults(quantityPerPage);
+
 		return criteria.list();
 	}
 

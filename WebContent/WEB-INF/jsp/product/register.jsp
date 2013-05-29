@@ -17,6 +17,8 @@
             </h4>
 
 			<form id="form-register" name="form-register" method="post" autocomplete="off">
+				<input type="hidden" id="event" value="REGISTER" />
+				
 				<input type="text" class="input-big" id="name" name="name" maxlength="150" placeholder="Nome do Produto" /> <br />
 				<input type="text" class="input-big" id="description" name="description" maxlength="150" placeholder="Descrição" /> <br />
 				<input type="text" class="input-big" id="price" name="price" placeholder="Preço (R$)" /> <br />
@@ -36,10 +38,9 @@
 			<jsp:include page="../footer.jsp" ></jsp:include>
 			<script type="text/javascript" src="/assets/js/uploadify/jquery.uploadify.js"></script>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
-			<script type="text/javascript" src="/assets/js/jquery/jquery-ui.js"></script>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.validate.js"></script>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.price_format.1.5.js"></script>
-			<script type="text/javascript" src="/assets/js/app/app.product-register.js"></script>
+			<script type="text/javascript" src="/assets/js/app/app.product-admin.js"></script>
 
 		</div>		
     </body>

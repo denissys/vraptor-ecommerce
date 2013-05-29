@@ -15,7 +15,14 @@
                	<span class="pull-left"><span class="text"><span class="line">Administrar <strong>Produtos</strong></span></span></span>
             </h4>
             
-            <a href="/produtos/novo" class="btn btn-inverse" title="Clique aqui para cadastrar um novo produto." id="enviar">Novo</a><br /><br />
+            <div class="row">
+            	<div class="span1">
+            		<a href="/produtos/novo" class="btn btn-inverse" title="Clique aqui para cadastrar um novo produto." id="enviar">Novo</a><br />
+            	</div>
+            	<div class="span3">
+		            <a href="/produtos/listagem-admin" class="btn btn-inverse" title="Clique aqui para visualizar os produtos cadastrados." id="enviar">Produtos Cadastrados</a><br /><br />
+		        </div>
+            </div>
 
 			<jsp:include page="../footer.jsp" ></jsp:include>
 		</div>		
