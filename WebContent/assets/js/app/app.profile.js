@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	$("#cpf").mask("999.999.999-99");
 	
-	$("#form-register").validate({
+	$("#form-update").validate({
 		
 		submitHandler:function(form) {
 			
@@ -10,26 +10,17 @@ $(document).ready(function() {
 					"user.firstName" : $('#firstName').val(),
 					"user.lastName"  : $('#lastName').val(),
 					"user.document"  : $('#cpf').val(),
-					"user.email"     : $('#newEmail').val(),
-					"user.password"  : $('#newPassword').val(),
-					"receiveEmail"   : $('#recebaEmail').val(),
 					"decisionRoute"  : $('#decisionRoute').val(),
 				};
 			
 			$.ajax({
 				  type: "POST",
-				  url: "/cadastro/salvar",
+				  url: "/perfil/atualizar",
 				  data: registerData,
 				  dataType: "json",
 				  success: function(data) {
-					  //jsonViewResponse: {redirect:true, urlRedirect:/criar-loja, success:true}
 					  var response = data.jsonViewResponse; 
-					  
-					  if(response.success == false) {
-						  alert(response.message);
-					  } else if(response.redirect == true) {
-						  location.href = response.urlRedirect;
-					  }
+					  alert(response.message);
 				  }
 				});
 		},
@@ -51,41 +42,15 @@ $(document).ready(function() {
 			cpf: {
 				required: true, 
 				verificaCPF: true
-			},
-			
-			newEmail: {
-				required: true,
-				email: true,
-				maxlength: 300,
-				minlength: 5
-			},
-			emailConfirm: {
-                required: true, 
-                equalTo: "#newEmail" 
-              
-         	 }, 
-         	 newPassword: {
-				required: true,
-				maxlength: 200,
-				minlength: 5
-				//notPartOf: $('#name')
-			},
-			passwordConfirm: {
-                required: true, 
-                equalTo: "#newPassword", 
-                minlength: 5
-         	 } 
-		},
-		messages: {
-			password: {
-				minlength: "Sua senha deve conter pelo menos {0} caracteres.",
-	    	},
-	    	passwordConfirm: "As senhas não coincidem.",
-	    	
-			emailConfirm: "Digite o mesmo e-mail informado no campo anterior."
+			}
 		}
 		
 	});
+});
+
+$(".btn-update").click(function() {
+
+	$(".edit").show();
 });
 
 jQuery.validator.addMethod("verificaCPF", function(value, element) {
@@ -112,14 +77,6 @@ jQuery.validator.addMethod("verificaCPF", function(value, element) {
 	if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) return false;
 	return true;
 	}, "Informe um CPF válido.");
-
-jQuery.validator.addMethod("notPartOf", function(value, element, params) {
-	return this.optional(element) || $('#name').val().indexOf(value)<0;
-	}, "Sua senha deve ser mais segura.");
-
-jQuery.validator.addMethod("hasSpace", function(value, element, params) {
-	return this.optional(element) || value.indexOf(' ')>=0;
-	}, "Você deve fornecer seu nome completo");
 
 jQuery.validator.addMethod("isAlpha", function(value, element, params) {
 	var str = value

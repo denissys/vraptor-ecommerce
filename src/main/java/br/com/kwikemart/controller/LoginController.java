@@ -49,7 +49,7 @@ public class LoginController {
 		
 		JsonViewResponse response = new JsonViewResponse(true, "Logado com sucesso");
 		
-		user = userDAO.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		user = userDAO.getByEmailOrCpf(user.getEmail(), user.getPassword());
 		if (user.isPersisted()) {
 			loggedUser.doLogin(user);
 			response = new JsonViewResponse(true, decisionRoute.getPath(), true);

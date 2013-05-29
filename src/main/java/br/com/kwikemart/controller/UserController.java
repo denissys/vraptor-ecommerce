@@ -83,7 +83,31 @@ public class UserController {
 	@LoggedIn
 	@Path(MY_ACCOUNT_PATH)
 	public void profile() {
+		result.include("user", loggedUser.getUser().getBasicInfo());
+	}
 
+	@Post
+	@LoggedIn
+	@Path("/perfil/atualizar")
+	public void profile(User user) {
+		JsonViewResponse response;
+		try {
+			User storedUser = userDAO.getById(loggedUser.getUser().getId());
+			storedUser.setFirstName(user.getFirstName());
+			storedUser.setLastName(user.getLastName());
+			storedUser.setDocument(user.getDocument());
+
+			userDAO.update(storedUser);
+			loggedUser.setUser(storedUser);
+
+			response = new JsonViewResponse(true, "Perfil atualizado com sucesso");
+
+		} catch (Exception e) {
+			response = new JsonViewResponse(
+					false,
+					"Ocorreu um erro ao atualizar o seu perfil, entre em contato com o administrador do sistema.");
+		}
+		result.use(json()).from(response).serialize();
 	}
 
 }

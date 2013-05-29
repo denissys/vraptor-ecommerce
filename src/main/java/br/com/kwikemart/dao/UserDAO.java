@@ -17,38 +17,15 @@ public class UserDAO {
 	public UserDAO(Session session) {
 		this.session = session;
     }
-    
-    public User findByEmailAndPassword(final String email, final String password) {
-        Criteria criteria = session.createCriteria(User.class, "user");
-        criteria.add(eq("user.email", email));
-        criteria.add(eq("user.password", password));
-		criteria.setMaxResults(1);
-        User user = (User) criteria.uniqueResult();
 
-        return user != null ? user : new User();
-    }
-    
-	public User getByEmail(final String email) {
-        Criteria criteria = session.createCriteria(User.class, "user");
-        criteria.add(eq("user.email", email));
-		criteria.setMaxResults(1);
+	public User getById(Long id) {
+		Criteria criteria = session.createCriteria(User.class, "user");
+		criteria.add(eq("user.id", id));
 		return (User) criteria.uniqueResult();
-    }
-    
-	public User findByCpf(final String cpf) {
-        Criteria criteria = session.createCriteria(User.class, "user");
-        criteria.add(eq("user.cpf", cpf));
-        criteria.setMaxResults(1);
-        User user = (User) criteria.uniqueResult();
-        return user != null ? user : new User();
-    }
+	}
 
 	public Long save(User entity) {
 		return (Long) session.save(entity);
-	}
-
-	public void saveOrUpdate(User entity) {
-		session.saveOrUpdate(entity);
 	}
 
 	public User update(User entity) {
@@ -61,7 +38,6 @@ public class UserDAO {
 		criteria.add(disjunction()
 		        		.add(eq("user.email", email))
 		        		.add(eq("user.document", cpf)));
-		criteria.setMaxResults(1);
 		User user = (User) criteria.uniqueResult();
 		return user;
 	}

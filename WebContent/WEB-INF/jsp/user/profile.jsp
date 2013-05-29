@@ -3,13 +3,13 @@
 
 <!DOCTYPE HTML>
 <html lang="pt-BR">
-	<jsp:include page="../head.jsp" ></jsp:include>
+	<jsp:include page="../head.jsp" />
     <body>		
-		<jsp:include page="../header.jsp" ></jsp:include>
+		<jsp:include page="../header.jsp" />
 		
 		<div id="wrapper" class="container">
 			
-			<jsp:include page="../menu.jsp" ></jsp:include>
+			<jsp:include page="../menu.jsp" />
 
 			<h4 class="title">
                	<span class="pull-left"><span class="text"><span class="line">Seja bem-vindo, <strong>${sessionScope.loggedUser.user.firstName}</strong></span></span></span>
@@ -22,11 +22,22 @@
 					</div>
 				</c:if>
 				<div class="span3">	
-					<a href="/logoff" class="btn btn-warning" title="Clique aqui navegar deslogado." id="enviar">Sair (Finalizar sessão)</a><br /><br />
+					<button type="submit" class="btn btn-inverse btn-update" name="atualizar-perfil" title="Clique aqui para editar o seu perfil." id="atualiz-perfil">Editar meu Perfil</button><br /><br />
+				</div>
+				<div class="span3">	
+					<a href="/logoff" class="btn btn-warning btn-update" title="Clique aqui navegar deslogado." id="enviar">Sair (Finalizar sessão)</a><br /><br />
 				</div>
 			</div>
+			<div class="edit hide">		
+				<jsp:include page="profileEdit.jsp" />
+			</div>	
 
-			<jsp:include page="../footer.jsp" ></jsp:include>
+			<jsp:include page="../footer.jsp" />
+			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.validate.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.maskedinput.min.js"></script>
+			<script type='text/javascript' src="/assets/js/app/app.profile.js"></script>
+			
 		</div>		
     </body>
 </html>

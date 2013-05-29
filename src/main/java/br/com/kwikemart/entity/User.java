@@ -44,4 +44,12 @@ public class User extends AbstractEntity implements Serializable {
 	@Enumerated(STRING)
 	private Role role = DEFAULT;
 
+	public User getBasicInfo() {
+		User user = new User();
+		user.setFirstName(this.firstName);
+		user.setLastName(this.lastName);
+		user.setDocument(this.document);
+		return user;
+	}
+
 }
