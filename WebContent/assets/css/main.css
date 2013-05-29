@@ -707,7 +707,6 @@ section.our_client .row{
     padding:10px 0;
 	text-align:center;	
 	font-weight:bold;
-	background:url(../img/i_submenu.png) no-repeat 98% center;
 }
 ._toggleMenu ul  > li a.parent{
 	background:url(../img/i_plus.png) no-repeat 98% center;
