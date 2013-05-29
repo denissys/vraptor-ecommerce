@@ -109,10 +109,12 @@ $(document).ready(function() {
 	});
 	
 	$(".btn-update").click(function() {
+		$(".box-hide-item").hide();
 		$(".edit").show();
 	});
 
 	$(".btn-change-passowrd").click(function() {
+		$(".box-hide-item").hide();
 		$(".change-password").show();
 	});
 });

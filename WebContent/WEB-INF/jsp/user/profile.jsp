@@ -31,11 +31,11 @@
 					<a href="/logoff" class="btn btn-warning btn-update" title="Clique aqui navegar deslogado." id="enviar">Sair (Finalizar sessão)</a><br /><br />
 				</div>
 			</div>
-			<div class="edit hide">		
+			<div class="box-hide-item edit hide">		
 				<jsp:include page="profileEdit.jsp" />
 			</div>
 			
-			<div class="change-password hide">		
+			<div class="box-hide-item change-password hide">		
 				<jsp:include page="profileChangePassword.jsp" />
 			</div>
 
