@@ -1,6 +1,7 @@
 package br.com.kwikemart.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
+import static br.com.kwikemart.entity.User.encryptsPassword;
 import static br.com.kwikemart.enums.Role.DEFAULT;
 import br.com.bronx.vraptor.restrictrex.annotation.LoggedIn;
 import br.com.caelum.vraptor.Get;
@@ -60,6 +61,7 @@ public class UserController {
 
 		if (newRegister) {
 
+			user.encryptsPassword();
 			user.setRole(DEFAULT);
 			final Long userId = userDAO.save(user);
 
@@ -118,10 +120,11 @@ public class UserController {
 		JsonViewResponse response = new JsonViewResponse(false,
 				"A senha atual não confere com a senha cadastrada.");
 		
-		User storedUser = userDAO.getByEmailAndPassword(loggedUser.getUser().getEmail(), password);
+		User storedUser = userDAO.getByEmailAndPassword(loggedUser.getUser().getEmail(), encryptsPassword(password));
 		
 		if (storedUser.isPersisted()) {
 			storedUser.setPassword(newPassword);
+			storedUser.encryptsPassword();
 			response = new JsonViewResponse(true, "Senha atualizada com sucesso");
 		}
 		

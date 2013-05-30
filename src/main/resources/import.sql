@@ -1,5 +1,5 @@
 -- User Admin
-INSERT INTO user (insert_date, document, email, firstName, lastName, password, role) VALUES ('2013-05-29 08:00:14', '783.782.883-66', 'apu@kwik.com.br', 'Apu', 'Nahasapeemapetilon', '123456', 'ADMIN');
+INSERT INTO user (insert_date, document, email, firstName, lastName, password, role) VALUES ('2013-05-29 08:00:14', '783.782.883-66', 'apu@kwik.com.br', 'Apu', 'Nahasapeemapetilon', '1204f2074c4fd160dc73b51d2c1438d2', 'ADMIN');
 
 -- Products Example 
 INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, name, price) VALUES ('2013-05-29 08:41:51', 'Deliciosos Legumes congelados', '1.jpg', 'Legumes congelado', 5.5);

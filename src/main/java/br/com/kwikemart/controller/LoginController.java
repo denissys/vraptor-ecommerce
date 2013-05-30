@@ -48,7 +48,8 @@ public class LoginController {
 	public void auth(User user, DecisionRoute decisionRoute) {
 		
 		JsonViewResponse response = new JsonViewResponse(true, "Logado com sucesso");
-		
+
+		user.encryptsPassword();
 		user = userDAO.getByEmailAndPassword(user.getEmail(), user.getPassword());
 		if (user.isPersisted()) {
 			loggedUser.doLogin(user);
