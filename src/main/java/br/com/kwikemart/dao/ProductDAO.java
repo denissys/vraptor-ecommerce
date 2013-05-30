@@ -1,5 +1,6 @@
 package br.com.kwikemart.dao;
 
+import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
 import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ProductDAO {
 	public Product getById(final Long id) {
 		Criteria criteria = session.createCriteria(Product.class, "product");
 		criteria.add(eq("product.id", id));
+		criteria.setCacheable(true);
 		return (Product) criteria.uniqueResult();
 	}
 
@@ -34,6 +36,7 @@ public class ProductDAO {
 	public List<Product> getByName(final String name) {
 		Criteria criteria = session.createCriteria(Product.class, "product");
 		criteria.add(eq("product.name", name));
+		criteria.setCacheable(true);
 		return criteria.list();
     }
     
@@ -55,6 +58,7 @@ public class ProductDAO {
 		Criteria criteria = session.createCriteria(Product.class, "product")
 				.addOrder(Order.desc("product.insertDate"));
 		criteria.setMaxResults(8);
+		criteria.setCacheable(true);
 		return criteria.list();
 	}
 
@@ -65,12 +69,22 @@ public class ProductDAO {
 	@SuppressWarnings("unchecked")
 	public List<Product> paginatedList(int page, int quantityPerPage, String keyword) {
 
+		// Verify CACHE HITS
+		// SessionFactory sessionFactory = session.getSessionFactory();
+		// sessionFactory.getStatistics().setStatisticsEnabled(true);
+
 		Criteria criteria = session.createCriteria(Product.class, "product");
-		criteria.add(Restrictions.like("product.name", "%" + keyword + "%"));
+		if (!isBlankOrNull(keyword)) {
+			criteria.add(Restrictions.like("product.name", "%" + keyword + "%"));
+		}
 		criteria.addOrder(Order.asc("product.name"));
 
 		criteria.setFirstResult(page);
 		criteria.setMaxResults(quantityPerPage);
+		criteria.setCacheable(true);
+
+		// Verify CACHE HITS
+		// sessionFactory.getStatistics().logSummary();
 
 		return criteria.list();
 	}

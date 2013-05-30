@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
-<!-- 	 <cache -->
-<!-- 	    name="br.com.kwikemart.dao.UserDAO" -->
-<!-- 	    maxEntriesLocalHeap="10000" -->
-<!-- 	    eternal="false" -->
-<!-- 	    timeToIdleSeconds="300" -->
-<!-- 	    timeToLiveSeconds="600" > -->
-<!-- 	 	<persistence strategy="localTempSwap"/> -->
-<!--  	</cache> -->
-
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache
+    	name="br.com.kwikemart.dao.ProductDAO"
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="true"
+        diskPersistent="false"
+        diskExpiryThreadIntervalSeconds="120" />
+     
 </ehcache>
-

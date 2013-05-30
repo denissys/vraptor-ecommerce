@@ -25,6 +25,11 @@
 		<property name="hibernate.c3p0.minPoolSize">1</property>
 		<property name="hibernate.c3p0.maxPoolSize">3</property>
 		<property name="hbm2ddl.auto" >create-drop</property>
+		
+		<!-- Cache -->
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
 
 		<mapping class="br.com.kwikemart.entity.User"/>
 		<mapping class="br.com.kwikemart.entity.UserAddress"/>
