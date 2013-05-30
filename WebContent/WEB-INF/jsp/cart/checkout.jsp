@@ -22,6 +22,7 @@
             
 			<jsp:include page="../footer.jsp" ></jsp:include>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.validate.js"></script>
 			<script type="text/javascript" src="/assets/js/jquery/jquery.maskedinput.min.js"></script>
 			<script type='text/javascript' src="/assets/js/app/app.register.js"></script>
 			<script type="text/javascript" src="/assets/js/app/app.login.js"></script>
