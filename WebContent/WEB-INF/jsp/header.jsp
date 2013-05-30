@@ -4,8 +4,15 @@
 <div id="top-bar" class="container">
 	<div class="row">
 		<div class="span6">
-			<form method="POST" class="search_form">
-				<input type="text" class="input-block-level search-query" placeholder="Digite aqui o produto que procura..." />
+			<form id="form-search" class="form-search" method="GET" action="/produtos/listagem" >
+				<div class="row">
+					<div class="span5">
+						<input type="text" class="input-block-level search-query" id="keyword" name="keyword" placeholder="Digite aqui o produto que procura..." />
+					</div>
+					<div class="span1">
+						<input type="submit" class="btn btn-info btn-search" value="Buscar" />
+					</div>
+				</div>
 			</form>
 		</div>
 		<div class="span6">

@@ -16,7 +16,9 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.com.kwikemart.bo.JsonViewResponse;
 import br.com.kwikemart.dao.ProductDAO;
+import br.com.kwikemart.entity.CartItem;
 import br.com.kwikemart.entity.Product;
+import br.com.kwikemart.session.Cart;
 import br.com.kwikemart.session.ImageUpload;
 import br.com.kwikemart.utils.UploadedFileUtil;
 
@@ -26,24 +28,30 @@ import br.com.kwikemart.utils.UploadedFileUtil;
 @Resource
 public class ProductController {
 
+	private static final int ZERO_ITEMS = 0;
 	private static final int QUANTITY_PER_PAGE = 4;
 	private static final int FIRST_PAGE = 0;
 	private Result result;
 	private ImageUpload imageUpload;
 	private UploadedFileUtil uploadedFileUtil;
 	private ProductDAO productDAO;
+	private Cart cart;
 
 	public ProductController(Result result, ImageUpload imageUpload,
-			UploadedFileUtil uploadedFileUtil, ProductDAO productDAO) {
+			UploadedFileUtil uploadedFileUtil, ProductDAO productDAO, Cart cart) {
 		this.result = result;
 		this.imageUpload = imageUpload;
 		this.uploadedFileUtil = uploadedFileUtil;
 		this.productDAO = productDAO;
+		this.cart = cart;
 	}
 
 	@Get
 	@Path("/produtos/{id}")
 	public void detail(long id) {
+
+		CartItem item = cart.getItem(id);
+		result.include("quantity", item != null ? item.getQuantity() : ZERO_ITEMS);
 		result.include("product", productDAO.getById(id));
 	}
 
@@ -93,7 +101,9 @@ public class ProductController {
 			}
 		} catch (IOException e) {
 			// TODO: Implementar regra de falha ao gravar imagem
-			response = new JsonViewResponse( false, "Falha ao cadastrar o produto, verifique os campos obrigatórios e se a imagem está no formato válido.");
+			response = new JsonViewResponse(
+					false,
+					"Falha ao cadastrar o produto, verifique os campos obrigatórios e se a imagem está no formato válido.");
 		}
 
 		result.use(json()).from(response).serialize();
@@ -120,7 +130,7 @@ public class ProductController {
 	@LoggedIn
 	@Roles(roles = "ADMIN")
 	@Path("/produtos/listagem-admin")
-	public void listProductsAdmin() {
+	public void productListAdmin() {
 		result.include("products", productDAO.paginatedList(FIRST_PAGE, QUANTITY_PER_PAGE));
 	}
 
@@ -128,7 +138,7 @@ public class ProductController {
 	@LoggedIn
 	@Roles(roles = "ADMIN")
 	@Path("/produtos/listagem-admin")
-	public void listProductsAdmin(final int page, final int quantityPerPage) {
+	public void productListAdmin(final int page, final int quantityPerPage) {
 		List<Product> products = productDAO.paginatedList(getPage(page, quantityPerPage), quantityPerPage);
 		result.use(json()).from(products).recursive().serialize();
 	}
@@ -141,4 +151,19 @@ public class ProductController {
 		result.include("product", productDAO.getById(id));
 	}
 
+	@Get
+	@Path("/produtos/listagem")
+	public void productList(String keyword) {
+		result.include("keyword", keyword);
+		result.include("products", productDAO.paginatedList(FIRST_PAGE, QUANTITY_PER_PAGE, keyword));
+	}
+	
+	@Post
+	@Path("/produtos/listagem")
+	public void productList(final int page, final int quantityPerPage, String keyword) {
+
+		List<Product> products = productDAO.paginatedList(getPage(page, quantityPerPage), quantityPerPage, keyword);
+		result.use(json()).from(products).recursive().serialize();
+	}
+	
 }

@@ -85,7 +85,8 @@ $(document).ready(function() {
 					  $.each(data.list, function(i, product) {
 						  renderNewItem(product);
 					  });
-				  } else {
+				  }
+				  if(data.list.length < 4) {
 					  $('.btn-more-products').hide();
 					  $('.end-list').show();
 				  }

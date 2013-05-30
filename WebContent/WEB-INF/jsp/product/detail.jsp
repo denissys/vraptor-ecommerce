@@ -34,7 +34,7 @@
 							<div class="span6">
 								<input type="hidden" id="productId" value="${product.id}" />
 								<label>Quantidade:</label>
-								<input type="text" id="quantity" name="quantity" class="span1" value="1" />
+								<input type="text" id="quantity" name="quantity" class="span1" value="${quantity}" />
 								<button id="add-cart" class="btn btn-success" type="submit">Adicionar ao carrinho</button>
 								<a href="/meu-carrinho" class="btn btn-danger" >Ir para o seu carrinho</a>
 							</div>							

@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.kwikemart.entity.Product;
@@ -57,10 +58,16 @@ public class ProductDAO {
 		return criteria.list();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Product> paginatedList(int page, int quantityPerPage) {
-		Criteria criteria = session.createCriteria(Product.class, "product")
-				.addOrder(Order.asc("product.name"));
+		return paginatedList(page, quantityPerPage, null);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product> paginatedList(int page, int quantityPerPage, String keyword) {
+
+		Criteria criteria = session.createCriteria(Product.class, "product");
+		criteria.add(Restrictions.like("product.name", "%" + keyword + "%"));
+		criteria.addOrder(Order.asc("product.name"));
 
 		criteria.setFirstResult(page);
 		criteria.setMaxResults(quantityPerPage);

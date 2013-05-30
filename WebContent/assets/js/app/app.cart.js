@@ -17,6 +17,21 @@ $("#add-cart").click(function() {
 	
 });
 
+$("#clear-cart").click(function() {
+
+	$.ajax({
+		  type: "POST",
+		  url: "/meu-carrinho/limpar",
+		  dataType: "json",
+		  success: function(data) {
+			  $(".total").html("R$ 0,00");
+			  $(".product-item").remove();
+			  $("#clear-cart").remove();
+			  $("#buy-cart").remove();
+		  }
+		});
+});
+
 $("#remove-cart").click(function(e) {
 	
 	var cartData = {

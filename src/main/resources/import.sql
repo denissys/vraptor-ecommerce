@@ -11,3 +11,4 @@ INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, na
 INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, name, price) VALUES ('2013-05-29 08:47:57', 'Ótimo para a sua saúde', '7.jpg', 'Leite Molico', 2.34);
 INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, name, price) VALUES ('2013-05-29 08:48:58', 'Tempero para salada e outros alimentos', '8.jpg', 'Azeite', 14.00);
 INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, name, price) VALUES ('2013-05-29 08:48:58', 'Danone da turma da Mônica', '9.png', 'Danone', 6.05);
+INSERT INTO `dbkwikemart`.`product` (insert_date, description, imageFilename, name, price) VALUES ('2013-05-29 08:54:58', 'Coca-Cola Zero (sem açucar)', '10.jpg', 'Coca-Cola Zero', 1.54);

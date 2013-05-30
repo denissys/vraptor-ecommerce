@@ -36,7 +36,7 @@
 								<c:set var="total" scope="session" value="0"/>
 							
 								<c:forEach items="${items}" var="cart" >
-									<tr>
+									<tr class="product-item" id="item-${product.id}">
 										<td>
 											<button id="remove-cart" class="btn" type="button" data-id="${cart.product.id}">Remover</button>
 										</td>
@@ -52,8 +52,11 @@
 								</c:forEach>
 								
 								<tr>
-									<td colspan="5"><h4>Total da Compra  <div class="label label-success">R$ <fmt:formatNumber value="${total}" type="currency"/></div></h4></td>
+									<td colspan="4"><h4>Total da Compra  <div class="label label-success total">R$ <fmt:formatNumber value="${total}" type="currency"/></div></h4></td>
 									<c:if test="${fn:length(items) gt 0}" >
+										<td>
+											<button id="clear-cart" class="btn btn-large" type="button" >Limpar</button>
+										</td>
 										<td>
 											<button id="buy-cart" class="btn btn-danger btn-large" type="button" >Comprar</button>
 										</td>
