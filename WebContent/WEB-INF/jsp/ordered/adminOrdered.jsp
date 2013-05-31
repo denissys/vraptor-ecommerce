@@ -48,7 +48,6 @@
 				</div>
 			
 			<jsp:include page="../footer.jsp" ></jsp:include>
-			<script type="text/javascript" src="/assets/js/app/app.cart.js"></script>
 		</div>		
     </body>
 </html>
