@@ -41,6 +41,10 @@ public class Ordered extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private OrderStatus status = WAITING_FOR_RELEASE;
 
+	public Ordered() {
+
+	}
+
 	public Ordered(User user, UserAddress userAddress, List<CartItem> items) {
 		this.user = user;
 		this.userAddress = userAddress;

@@ -32,16 +32,18 @@
 								<h4><strong>Preço: R$ ${product.price}</strong></h4>
 							</div>
 							<div class="span6">
-								<input type="hidden" id="productId" value="${product.id}" />
-								<label>Quantidade:</label>
-								<input type="text" id="quantity" name="quantity" class="span1" value="${quantity}" />
-								<button id="add-cart" class="btn btn-success" type="submit">Adicionar ao carrinho</button>
-								<a href="/meu-carrinho" class="btn btn-danger" >Ir para o seu carrinho</a>
+								<form id="form-add" name="form-add" action="POST">
+									<input type="hidden" id="productId" value="${product.id}" />
+									<label>Quantidade:</label>
+									<input type="text" id="quantity" name="quantity" class="span1" maxlength="2" value="${quantity}" /><br />
+									<button id="add-cart" class="btn btn-success" type="submit">Adicionar ao carrinho</button>
+									<a href="/meu-carrinho" class="btn btn-danger" >Ir para o seu carrinho</a>
+								</form>
 							</div>							
 						</div>
 					</div>
 				</div>
-					
+
 				</c:when>
 				<c:otherwise>
 					Desculpe, o produto não foi encontrado.
@@ -49,6 +51,8 @@
 			</c:choose>
 
 			<jsp:include page="../footer.jsp" ></jsp:include>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
+			<script type="text/javascript" src="/assets/js/jquery/jquery.validate.js"></script>
 			<script type="text/javascript" src="/assets/js/app/app.cart.js"></script>
 		</div>		
     </body>
