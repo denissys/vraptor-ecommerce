@@ -20,7 +20,8 @@ $(document).ready(function() {
 				"product.imageFilename": $('#imageFilename').val(),
 				"product.name"         : $('#name').val(),
 				"product.description"  : $('#description').val(),
-				"product.price"        : $('#price').val()
+				"product.price"        : $('#price').val(),
+				"product.status"       : $('#status').val()
 			};
 			
 			$.ajax({
@@ -32,10 +33,11 @@ $(document).ready(function() {
 
 					  var response = data.jsonViewResponse; 
 					  
-					  if(response.success && $("#event") == "REGISTER") {
+					  if(response.success && $("#event").val() == "REGISTER") {
 						  $("#name").prop("readonly",true);
 						  $("#description").prop("readonly",true);
 						  $("#price").prop("readonly",true);
+						  $('#status').prop('disabled', 'disabled');
 						  $('#register-action').hide();
 						  $('#next-step').show();
 					  } else {

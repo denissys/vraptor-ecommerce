@@ -1,6 +1,7 @@
 package br.com.kwikemart.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
+import static br.com.kwikemart.enums.ProductStatus.ENABLED;
 import static br.com.kwikemart.utils.Pagination.getPage;
 
 import java.io.IOException;
@@ -155,14 +156,14 @@ public class ProductController {
 	@Path("/produtos/listagem")
 	public void productList(String keyword) {
 		result.include("keyword", keyword);
-		result.include("products", productDAO.paginatedList(FIRST_PAGE, QUANTITY_PER_PAGE, keyword));
+		result.include("products", productDAO.paginatedList(FIRST_PAGE, QUANTITY_PER_PAGE, keyword, ENABLED));
 	}
 	
 	@Post
 	@Path("/produtos/listagem")
 	public void productList(final int page, final int quantityPerPage, String keyword) {
 
-		List<Product> products = productDAO.paginatedList(getPage(page, quantityPerPage), quantityPerPage, keyword);
+		List<Product> products = productDAO.paginatedList(getPage(page, quantityPerPage), quantityPerPage, keyword, ENABLED);
 		result.use(json()).from(products).recursive().serialize();
 	}
 	

@@ -1,5 +1,6 @@
 package br.com.kwikemart.dao;
 
+import static br.com.kwikemart.enums.ProductStatus.ENABLED;
 import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -12,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.kwikemart.entity.Product;
+import br.com.kwikemart.enums.ProductStatus;
 
 /**
  * @author Denis Santos
@@ -55,19 +57,21 @@ public class ProductDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Product> featured() {
-		Criteria criteria = session.createCriteria(Product.class, "product")
-				.addOrder(Order.desc("product.insertDate"));
+		Criteria criteria = session.createCriteria(Product.class, "product");
+		criteria.add(Restrictions.eq("product.status", ENABLED));
+		criteria.addOrder(Order.desc("product.insertDate"));
 		criteria.setMaxResults(8);
 		criteria.setCacheable(true);
 		return criteria.list();
 	}
 
 	public List<Product> paginatedList(int page, int quantityPerPage) {
-		return paginatedList(page, quantityPerPage, null);
+		return paginatedList(page, quantityPerPage, null, null);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> paginatedList(int page, int quantityPerPage, String keyword) {
+	public List<Product> paginatedList(int page, int quantityPerPage,
+			String keyword, ProductStatus status) {
 
 		// Verify CACHE HITS
 		// SessionFactory sessionFactory = session.getSessionFactory();
@@ -76,6 +80,9 @@ public class ProductDAO {
 		Criteria criteria = session.createCriteria(Product.class, "product");
 		if (!isBlankOrNull(keyword)) {
 			criteria.add(Restrictions.like("product.name", "%" + keyword + "%"));
+		}
+		if (status != null) {
+			criteria.add(Restrictions.eq("product.status", status));
 		}
 		criteria.addOrder(Order.asc("product.name"));
 

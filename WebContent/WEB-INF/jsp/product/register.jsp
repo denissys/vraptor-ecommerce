@@ -1,3 +1,4 @@
+<%@page import="br.com.kwikemart.enums.ProductStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -22,6 +23,10 @@
 				<input type="text" class="input-big" id="name" name="name" maxlength="150" placeholder="Nome do Produto" /> <br />
 				<input type="text" class="input-big" id="description" name="description" maxlength="150" placeholder="Descrição" /> <br />
 				<input type="text" class="input-big" id="price" name="price" placeholder="Preço (R$)" /> <br />
+				<select id="status" name="status">
+					<option value="<%=ProductStatus.ENABLED%>"  ${product.status == 'ENABLED'  ? 'selected="selected"' : ''}>Ativo</option>
+					<option value="<%=ProductStatus.DISABLED%>" ${product.status == 'DISABLED' ? 'selected="selected"' : ''}>Inativo</option>
+				</select>
 
 				<div id="register-action">
 					<input type="file" name="file_upload" id="file_upload" />
