@@ -36,7 +36,7 @@ public class OrderedController {
 	@Get
 	@LoggedIn
 	@Roles(roles = "ADMIN")
-	@Path("/produtos/admin")
+	@Path("/pedidos/admin")
 	public void adminOrdered() {
 		result.include("ordered", orderedDAO.getByStatus(WAITING_FOR_RELEASE));
 	}

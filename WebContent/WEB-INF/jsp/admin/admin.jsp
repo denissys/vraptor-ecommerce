@@ -15,7 +15,9 @@
                	<span class="pull-left"><span class="text"><span class="line">Área <strong>restrita</strong></span></span></span>
             </h4>
             
-			<a href="/produtos/admin" class="btn btn-inverse" title="Clique aqui para acessar a área de administração de produtos." id="enviar">Produtos</a><br /><br />
+			<a href="/produtos/admin" class="btn btn-inverse" title="Clique aqui para acessar a área de administração de produtos." id="produtos">Produtos</a><br /><br />
+			
+			<a href="/pedidos/admin" class="btn btn-inverse" title="Clique aqui para acessar a lista de pedidos dos clientes." id="pedidos">Pedidos</a><br /><br />
 
 			<jsp:include page="../footer.jsp" ></jsp:include>
 		</div>		
